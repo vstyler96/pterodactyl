@@ -56,9 +56,14 @@ RUN curl -sSL https://github.com/gorcon/rcon-cli/releases/download/v0.10.3/rcon-
     mv /tmp/rcon-0.10.3-amd64_linux/rcon /usr/local/bin/ && \
     chmod +x /usr/local/bin/rcon
 
+RUN echo "HOME: ${HOME_PATH}"
+
 # Copiar el script de entrada
-COPY entrypoint.sh .
+COPY ./entrypoint.sh .
 RUN chmod +x ./entrypoint.sh
+
+RUN echo "Files:"
+RUN ls $HOME_PATH
 
 # Inicializar con tini
 ENTRYPOINT ["/usr/bin/tini", "-g", "--"]
