@@ -1,6 +1,14 @@
 #!/bin/bash
+set -e
+
 cd /home/container || exit 1
 
-# Si necesitas reemplazar variables como {{PORT}}, aquí puedes hacerlo
-# Por ahora solo ejecuta lo que venga en el startup command
-exec "$@"
+MODIFIED_STARTUP="$STARTUP"
+
+# Lista de variables conocidas a reemplazar
+for clean_var in $(echo "$STARTUP" | grep -oE ':[A-Z0-9_]+'); do
+  value="${!clean_var}"
+  MODIFIED_STARTUP="${MODIFIED_STARTUP//:$clean_var/$value}"
+done
+
+exec $MODIFIED_STARTUP
