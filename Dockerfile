@@ -31,7 +31,7 @@ RUN dpkg --add-architecture i386 && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Definir carpeta de trabajo
-WORKDIR ${HOME_PATH}
+WORKDIR /home/container
 
 # Instalar SteamCMD
 RUN mkdir -p Steam && \
@@ -56,15 +56,10 @@ RUN curl -sSL https://github.com/gorcon/rcon-cli/releases/download/v0.10.3/rcon-
     mv /tmp/rcon-0.10.3-amd64_linux/rcon /usr/local/bin/ && \
     chmod +x /usr/local/bin/rcon
 
-RUN echo "HOME: ${HOME_PATH}"
-
 # Copiar el script de entrada
-COPY ./entrypoint.sh .
-RUN chmod +x ./entrypoint.sh
-
-RUN echo "Files:"
-RUN ls $HOME_PATH
+COPY ./entrypoint.sh /
+RUN chmod +x /entrypoint.sh
 
 # Inicializar con tini
 ENTRYPOINT ["/usr/bin/tini", "-g", "--"]
-CMD ["./entrypoint.sh"]
+CMD ["/entrypoint.sh"]
