@@ -34,7 +34,7 @@ Optimized Debian bookworm|ghcr.io/vstyler96/l4d2-bookworm:latest
 ```
 4. En el "Startup Command" coloca:
 ```
-./srcds_run -strictportbind -norestart +ip :IP -port :PORT
+./srcds_run -strictportbind -norestart -port :PORT
 ```
 5. En "Start configuration":
 ```json
