@@ -26,7 +26,8 @@ RUN dpkg --add-architecture i386 && \
         libssl3 \
         libssl3:i386 \
         libtinfo6 \
-        libtinfo6:i386 && \
+        libtinfo6:i386 \
+        gettext && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

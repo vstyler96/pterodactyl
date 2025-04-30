@@ -12,4 +12,4 @@ for clean_var in $(echo "$MODIFIED_STARTUP" | grep -oE ':[A-Z0-9_]+'); do
   MODIFIED_STARTUP=${MODIFIED_STARTUP//"$clean_var"/$value}
 done
 
-eval $MODIFIED_STARTUP
+eval "$MODIFIED_STARTUP"
